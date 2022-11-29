@@ -23,8 +23,8 @@
                 session_start();
                 $_SESSION['email'] = $email;
                 $_SESSION['clave'] = $clave;
-                
-                echo "Todo bien";
+
+                header('Location: ../Vistas/pagina-principal-usuario.php');
             } else {
                 echo "NOP"; //PONER ALERTA
             }

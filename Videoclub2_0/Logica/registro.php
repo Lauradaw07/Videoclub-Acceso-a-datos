@@ -7,6 +7,7 @@
     $clave = $_POST['clave'];
     $comprobacionClave = $_POST['comprobacionClave'];
 
+    //COMPROBAR TAMBIÉN QUE EL NOMBRE DE USUARIO NO ESTÉ REGISTRADO EN LA BASE DE DATOS
     if(($nombre != "") && ($usuario != "") && ($email != "") && ($clave != "") && ($comprobacionClave != "")) {
         if($clave === $comprobacionClave) {
             $conexion = null;
@@ -20,9 +21,9 @@
                 $sentencia = $conexion -> prepare($sql);
                 $sentencia -> execute([$email]);
     
-                $usuario = $sentencia -> fetch();
+                $usuarioEncontrado = $sentencia -> fetch();
     
-                if(!$usuario) {
+                if(!$usuarioEncontrado) {
                     try {
                         $id = uniqid();
     
@@ -58,6 +59,8 @@
             } catch(PDOException $e) {
                 echo $e -> getMessage();
             }
+        } else {
+            echo "Usuario o contraseña incorrectas"; //PONER ALERTA
         }
     } else {
         header('Location: ../Vistas/log-in.html');
