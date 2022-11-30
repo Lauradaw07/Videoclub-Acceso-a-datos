@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
     <!--JS Bootstrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <title>Página usuario</title>
 </head>
 <body>
@@ -58,14 +59,24 @@
             </div>
 
             <div class="col-12 col-lg-12">
-            <div class="container">
+                <div class="container">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                               <th scope="col">Título</th>
                               <th scope="col">Precio</th>
-                              <th scope="col">Fecha alquiler</th>
-                            
+                              <th scope="col" class="d-flex justify-content-center align-items-center">
+                                Fecha alquiler
+                                <form method="post" action="">
+                                    <input type="hidden" name="btnOrd" value='ORDER by fechaAlquiler ASC'>
+                                    <button class="ms-2 btn btn-info" type='submit'><i class="bi bi-chevron-up"></i></button>
+                                </form>
+                                
+                                <form method="post" action="">
+                                    <input type="hidden" name="btnOrd" value='ORDER by fechaAlquiler DESC'>
+                                    <button class="ms-2 btn btn-info" type="submit"><i class="bi bi-chevron-down"></i></button>
+                                </form>
+                              </th>
                             </tr>
                         </thead>
     
@@ -79,7 +90,7 @@
                                 $conexion = new PDO(DSN, USUARIO, CLAVE);
                                 $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                                                 
-                                $sql = 'SELECT * FROM soporte INNER JOIN alquileres on (soporte.id = alquileres.idSoporte) AND (alquileres.idCliente = ?)';
+                                $sql = 'SELECT * FROM soporte INNER JOIN alquileres on (soporte.id = alquileres.idSoporte) AND (alquileres.idCliente = ?)' . (isset($_POST['btnOrd']) ? $_POST['btnOrd']:"");
                                                 
                                 $sentencia = $conexion -> prepare($sql);
                                 $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
@@ -90,16 +101,14 @@
                                 if(isset($soportes)){
                                     foreach($soportes as $soporte) {
                                         echo "<tr>";
-                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']." €</td><td>".$soporte['fechaAlquiler']."</td></tr>";
+                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']." €</td><td class='d-flex justify-content-center'>".$soporte['fechaAlquiler']."</td></tr>";
                                     }
                                 }
                             
                             } catch(PDOException $e) {
                                 echo $e -> getMessage();
                             }
-        
                         ?>
-
                         </tbody>
                     </table>    
                 </div>
@@ -118,7 +127,18 @@
                             <tr>
                               <th scope="col">Título</th>
                               <th scope="col">Precio</th>
-                              <th scope="col">Fecha alquiler</th>
+                              <th scope="col" class="d-flex justify-content-center align-items-center">
+                                Fecha alquiler
+                                <form method="post" action="">
+                                    <input type="hidden" name="btnOrd2" value='ORDER by fechaAlquiler ASC'>
+                                    <button class="ms-2 btn btn-info" type='submit'><i class="bi bi-chevron-up"></i></button>
+                                </form>
+                                
+                                <form method="post" action="">
+                                    <input type="hidden" name="btnOr2" value='ORDER by fechaAlquiler DESC'>
+                                    <button class="ms-2 btn btn-info" type="submit"><i class="bi bi-chevron-down"></i></button>
+                                </form>
+                            </th>
                             </tr>
                         </thead>
     
@@ -132,7 +152,7 @@
                                 $conexion = new PDO(DSN, USUARIO, CLAVE);
                                 $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                                                 
-                                $sql = 'SELECT * FROM soporte INNER JOIN alquileres on (soporte.id = alquileres.idSoporte) AND (alquileres.idCliente = ?) AND (soporte.alquilado LIKE 1)';
+                                $sql = 'SELECT * FROM soporte INNER JOIN alquileres on (soporte.id = alquileres.idSoporte) AND (alquileres.idCliente = ?) AND (soporte.alquilado LIKE 1)' . (isset($_POST['btnOrd2']) ? $_POST['btnOrd2']:"");
                                                 
                                 $sentencia = $conexion -> prepare($sql);
                                 $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
@@ -143,7 +163,7 @@
                                 if(isset($soportes)){
                                     foreach($soportes as $soporte) {
                                         echo "<tr>";
-                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']." €</td><td>".$soporte['fechaAlquiler']."</td></tr>";
+                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']." €</td><td class='d-flex justify-content-center'>".$soporte['fechaAlquiler']."</td></tr>";
                                     }
                                 }
                             
