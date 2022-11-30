@@ -16,28 +16,37 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-lg-12 d-flex justify-content-center">
-                <h2>Log-in</h2>
-            </div>
-        </div>
+            <div class="col-12 col-lg-6"></div>
 
-        <div class="row">
-            <div class="col-12 col-lg-12 d-flex justify-content-center">
-                <form class="form" action="../Logica/log-in.php" method="post">
-                    <fieldset class="border p-2">
-                        <label for="email">Introduce tu correo:</label><br>
-                        <input class="form-control" type="text" id="email" name="email" placeholder="ejemplo@ejemplo.com">
+            <div class="col-12 col-lg-6 containForm d-flex flex-column justify-content-center align-items-center">
+                <div class="row">
+                    <div class="col-12 col-lg-12">
+                        <h2 class="text-light">Login</h2>
+                    </div>
+                </div>
 
-                        <label for="clave"></label>Introduce tu contraseña:</label><br>
-                        <input class="form-control" type="password" id="clave" name="clave" placeholder="Tu contraseña...">
-
-                        <button class="btn btn-light" type="submit">Iniciar sesion</button>
-                        <a href="./registro.html">Registrarse</a>
-                    </fieldset>
-                </form>
+                <div class="row">
+                    <div class="col-12 col-lg-12 mt-3">
+                        <form class="form" action="../Logica/log-in.php" method="post">
+                            <fieldset class=" ps-2">
+                                <label class="text-light" for="email">Introduce tu correo:</label><br>
+                                <input class="form-control" type="text" id="email" name="email" placeholder="ejemplo@ejemplo.com">
+        
+                                <label class="text-light mt-4" for="clave">Introduce tu contraseña:</label><br>
+                                <input class="form-control" type="password" id="clave" name="clave" placeholder="Tu contraseña...">
+        
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <button class="btn btn-info " type="submit">Iniciar sesion</button>
+                                    <a href="./registro.html">Registrarse</a>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     
+    <script src="../js/loging-registro.js"></script>
 </body>
 </html>

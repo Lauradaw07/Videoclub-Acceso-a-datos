@@ -53,6 +53,113 @@
         </div>
 
         <div class="row">
+            <div class="col-12 col-lg-12 mt-4 mb-4 d-flex justify-content-center">
+                <h2>Histórico de productos:</h2>
+            </div>
+
+            <div class="col-12 col-lg-12">
+            <div class="container">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                              <th scope="col">Título</th>
+                              <th scope="col">Precio</th>
+                              <th scope="col">Fecha alquiler</th>
+                            
+                            </tr>
+                        </thead>
+    
+                        <tbody>
+                        <?php
+                        
+                            $conexion = null;
+
+                            try {
+                                                
+                                $conexion = new PDO(DSN, USUARIO, CLAVE);
+                                $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                                
+                                $sql = 'SELECT * FROM soporte INNER JOIN alquileres on (soporte.id = alquileres.idSoporte) AND (alquileres.idCliente = ?)';
+                                                
+                                $sentencia = $conexion -> prepare($sql);
+                                $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
+                                $sentencia -> execute([$usuario['idCliente']]);
+                                                
+                                $soportes = $sentencia -> fetchAll();
+                                                
+                                if(isset($soportes)){
+                                    foreach($soportes as $soporte) {
+                                        echo "<tr>";
+                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']." €</td><td>".$soporte['fechaAlquiler']."</td></tr>";
+                                    }
+                                }
+                            
+                            } catch(PDOException $e) {
+                                echo $e -> getMessage();
+                            }
+        
+                        ?>
+
+                        </tbody>
+                    </table>    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-12 mt-4 mb-4 d-flex justify-content-center">
+                <h2>Productos alquilados:</h2>
+            </div>
+
+            <div class="col-12 col-lg-12">
+            <div class="container">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                              <th scope="col">Título</th>
+                              <th scope="col">Precio</th>
+                              <th scope="col">Fecha alquiler</th>
+                            </tr>
+                        </thead>
+    
+                        <tbody>
+                        <?php
+                        
+                            $conexion = null;
+
+                            try {
+                                                
+                                $conexion = new PDO(DSN, USUARIO, CLAVE);
+                                $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                                
+                                $sql = 'SELECT * FROM soporte INNER JOIN alquileres on (soporte.id = alquileres.idSoporte) AND (alquileres.idCliente = ?) AND (soporte.alquilado LIKE 1)';
+                                                
+                                $sentencia = $conexion -> prepare($sql);
+                                $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
+                                $sentencia -> execute([$usuario['idCliente']]);
+                                                
+                                $soportes = $sentencia -> fetchAll();
+                                                
+                                if(isset($soportes)){
+                                    foreach($soportes as $soporte) {
+                                        echo "<tr>";
+                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']." €</td><td>".$soporte['fechaAlquiler']."</td></tr>";
+                                    }
+                                }
+                            
+                            } catch(PDOException $e) {
+                                echo $e -> getMessage();
+                            }
+        
+                        ?>
+
+                        </tbody>
+                    </table>    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-12 col-lg-12">
                 <a href="listado.php">Ver productos</a>
             </div>

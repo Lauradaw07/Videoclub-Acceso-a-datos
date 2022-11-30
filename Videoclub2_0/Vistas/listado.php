@@ -12,7 +12,12 @@
 </head>
 <body>
 
-    <div class="container-fluid">
+    <!--SELECT * FROM soporte, juego WHERE id = (
+  SELECT idSoporte FROM juego);-->
+
+    
+
+    <div class="container-fluid"></div>
         <div class="row">
             <div class="col-12 col-lg-12 mt-4 mb-4 d-flex justify-content-center">
                 <h2>Productos:</h2>
@@ -20,39 +25,197 @@
         </div>
         
         <div class="row">
-            <div class="col-12 col-lg-12">
+            <div class="col-12 col-lg-12 d-flex justify-content-center">
+                <h2>Juegos:</h2>
+            </div>
+
+            <div class="col-12 col-lg-12 d-flex align-items-center">
                 <div class="container">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">First</th>
-                              <th scope="col">Last</th>
-                              <th scope="col">Handle</th>
+                              <th scope="col">Título</th>
+                              <th scope="col">Precio</th>
+                              <th scope="col">Consola</th>
+                              <th scope="col">minJugadores</th>
+                              <th scope="col">maxJugadores</th>
+                              <th scope="col">Alquilado</th>
+                              <th scope="col"></th>
                             </tr>
                         </thead>
     
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                        <?php
+                            include "../Logica/database.inc.php";
+                            $conexion = null;
+
+                            try {
+                                                
+                                $conexion = new PDO(DSN, USUARIO, CLAVE);
+                                $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                                
+                                $sql = 'SELECT * FROM soporte INNER JOIN juego on soporte.id = juego.idSoporte';
+                                                
+                                $sentencia = $conexion -> prepare($sql);
+                                $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
+                                $sentencia -> execute();
+                                                
+                                $soportes = $sentencia -> fetchAll();
+                                                
+                                if(isset($soportes)){
+                                    foreach($soportes as $soporte) {
+                                        echo "<tr>";
+                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']."</td><td>".$soporte['consola']."</td><td>".$soporte['minNumeroJugadores']."</td><td>".$soporte['maxNumeroJugadores']."</td><td>";
+                                        echo ($soporte['alquilado']) ? "No disponible":"Disponible";
+                                        if($soporte['alquilado']) {
+                                            echo "</td><td class='d-flex justify-content-end'><button disabled class='btn btn-danger'>Alquilar</button></td>";
+                                        } else {
+                                            echo "</td><td class='d-flex justify-content-end'> <form method='post' action='../Logica/alquilar.php'> <input type='hidden' name='idSoporte' value='".$soporte['id']."'> <button type='submit' class='btn btn-danger'>Alquilar</button> </form> </td>";
+                                        }
+                                        
+                                    }
+                                }
+                            
+                            } catch(PDOException $e) {
+                                echo $e -> getMessage();
+                            }
+        
+                        ?>
+
                         </tbody>
                     </table>    
                 </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-12 mt-4 d-flex justify-content-center">
+                <h2>DVD:</h2>
+            </div>
+
+            <div class="col-12 col-lg-12 d-flex align-items-center">
+                <div class="container">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                              <th scope="col">Título</th>
+                              <th scope="col">Precio</th>
+                              <th scope="col">Idiomas</th>
+                              <th scope="col">Formato de Pantalla</th>
+                              <th scope="col">Alquilado</th>
+                              <th scope="col"></th>
+                            
+                            </tr>
+                        </thead>
+    
+                        <tbody>
+                        <?php
+                        
+                            $conexion = null;
+
+                            try {
+                                                
+                                $conexion = new PDO(DSN, USUARIO, CLAVE);
+                                $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                                
+                                $sql = 'SELECT * FROM soporte INNER JOIN dvd on soporte.id = dvd.idSoporte';
+                                                
+                                $sentencia = $conexion -> prepare($sql);
+                                $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
+                                $sentencia -> execute();
+                                                
+                                $soportes = $sentencia -> fetchAll();
+                                                
+                                if(isset($soportes)){
+                                    foreach($soportes as $soporte) {
+                                        echo "<tr>";
+                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']."</td><td>".$soporte['idiomas']."</td><td>".$soporte['formatoPantalla']."</td><td>";
+                                        echo ($soporte['alquilado']) ? "No disponible":"Disponible";
+                                        if($soporte['alquilado']) {
+                                            echo "</td><td class='d-flex justify-content-end'><button disabled class='btn btn-danger'>Alquilar</button></td>";
+                                        } else {
+                                            echo "</td><td class='d-flex justify-content-end'> <form method='post' action='../Logica/alquilar.php'> <input type='hidden' name='idSoporte' value='".$soporte['id']."'> <button type='submit' class='btn btn-danger'>Alquilar</button> </form> </td>";
+                                        }
+                                    }
+                                }
+                            
+                            } catch(PDOException $e) {
+                                echo $e -> getMessage();
+                            }
+        
+                        ?>
+
+                        </tbody>
+                    </table>    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-12 mt-4 d-flex justify-content-center">
+                <h2>Cintas de Video:</h2>
+            </div>
+
+            <div class="col-12 col-lg-12 d-flex align-items-center">
+                <div class="container">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                              <th scope="col">Título</th>
+                              <th scope="col">Precio</th>
+                              <th scope="col">Duración</th>
+                              <th scope="col">Alquilado</th>
+                              <th scope="col"></th>
+        
+                            </tr>
+                        </thead>
+    
+                        <tbody>
+                        <?php
+                            $conexion = null;
+
+                            try {
+                                                
+                                $conexion = new PDO(DSN, USUARIO, CLAVE);
+                                $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                                
+                                $sql = 'SELECT * FROM soporte INNER JOIN cintavideo on soporte.id = cintavideo.idSoporte';
+                                                
+                                $sentencia = $conexion -> prepare($sql);
+                                $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
+                                $sentencia -> execute();
+                                                
+                                $soportes = $sentencia -> fetchAll();
+                                                
+                                if(isset($soportes)){
+                                    foreach($soportes as $soporte) {
+                                        echo "<tr>";
+                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']."</td><td>".$soporte['duracion']." minutos</td><td>";
+                                        echo ($soporte['alquilado']) ? "No disponible":"Disponible";
+                                        if($soporte['alquilado']) {
+                                            echo "</td><td class='d-flex justify-content-end'><button disabled class='btn btn-danger'>Alquilar</button></td>";
+                                        } else {
+                                            echo "</td><td class='d-flex justify-content-end'> <form method='post' action='../Logica/alquilar.php'> <input type='hidden' name='idSoporte' value='".$soporte['id']."'> <button type='submit' class='btn btn-danger'>Alquilar</button> </form> </td>";
+                                        }
+                                        
+                                    }
+                                }
+                            
+                            } catch(PDOException $e) {
+                                echo $e -> getMessage();
+                            }
+        
+                        ?>
+
+                        </tbody>
+                    </table>    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-12 d-flex justify-content-center">
+                <a href="./pagina-principal-usuario.php"><button class="btn btn-outline-info">Volver Atrás</button></a>
             </div>
         </div>
     </div>

@@ -1,7 +1,58 @@
-button {
-    border: 1px solid black !important;
+body {
+    background-color: black;
+    background-image: url('../Images/Untitled-2.jpg');
+
+    transition: all 2.5s;
 }
 
-input {
-    width: 300px !important;
+/* .grid{
+    display: grid;
+    grid-template-columns: 45% 55%;
+} */
+
+.containForm{
+    height: 100vh;
+    background: rgb(103,103,103);
+    background: linear-gradient(180deg, rgb(0, 0, 0,0.75) 30%,rgba(22, 55, 153, 0.75) 100%);
+    backdrop-filter: blur(6px);
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* flex-direction: column; */
+    box-shadow: -8px 1px 8px -5px rgba(0,0,0,0.75);
 }
+
+a{
+    color: rgb(62, 198, 236);
+}
+
+a:visited{
+    color: rgb(62, 198, 236);
+}
+
+
+
+@media (max-width: 480px) {
+    /* .grid{
+        grid-template-columns: 100%;
+    } */
+
+    .containForm{
+        backdrop-filter: blur(2px);
+    }
+
+    input {
+        width: 100% !important;
+    }
+}
+
+form {
+    color: white;
+}
+
+@media (min-width: 480px) {
+    input {
+        width: 350px !important;
+    }
+}
+
