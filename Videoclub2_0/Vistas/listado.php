@@ -15,12 +15,21 @@
     <!--SELECT * FROM soporte, juego WHERE id = (
   SELECT idSoporte FROM juego);-->
 
-    
-
     <div class="container-fluid"></div>
         <div class="row">
             <div class="col-12 col-lg-12 mt-4 mb-4 d-flex justify-content-center">
                 <h2>Productos:</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-12 d-flex justify-content-center">
+                <form action="" method='post'>
+                    <div class="input-group mb-3">
+                        <input type="text" name='search' class="form-control" placeholder="Titanic" aria-label="Titanic" aria-describedby="basic-addon2">
+                        <button class="btn btn-info" type="submit">Buscar</button>
+                    </div>            
+                </form>
             </div>
         </div>
         
@@ -53,12 +62,24 @@
                                                 
                                 $conexion = new PDO(DSN, USUARIO, CLAVE);
                                 $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                                
-                                $sql = 'SELECT * FROM soporte INNER JOIN juego on soporte.id = juego.idSoporte';
-                                                
-                                $sentencia = $conexion -> prepare($sql);
-                                $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
-                                $sentencia -> execute();
+                                
+                                //$sql = 'SELECT * FROM soporte INNER JOIN juego on (soporte.id = juego.idSoporte)' . isset($_POST['search']) ? "AND (soporte.titulo LIKE ?)":"";
+
+                                
+                                if(isset($_POST['search'])) {
+                                    $sql = 'SELECT * FROM soporte INNER JOIN juego on soporte.id = juego.idSoporte AND soporte.titulo LIKE ?';
+
+                                    $sentencia = $conexion -> prepare($sql);
+                                    $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
+                                    $sentencia -> execute([$_POST['search']."%"]);
+
+                                } else {
+                                    $sql = 'SELECT * FROM soporte INNER JOIN juego on soporte.id = juego.idSoporte';
+
+                                    $sentencia = $conexion -> prepare($sql);
+                                    $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
+                                    $sentencia -> execute();
+                                }
                                                 
                                 $soportes = $sentencia -> fetchAll();
                                                 
@@ -117,12 +138,22 @@
                                                 
                                 $conexion = new PDO(DSN, USUARIO, CLAVE);
                                 $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                                
-                                $sql = 'SELECT * FROM soporte INNER JOIN dvd on soporte.id = dvd.idSoporte';
-                                                
-                                $sentencia = $conexion -> prepare($sql);
-                                $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
-                                $sentencia -> execute();
+
+                                if(isset($_POST['search'])) {
+                                    $sql = 'SELECT * FROM soporte INNER JOIN dvd on soporte.id = dvd.idSoporte AND soporte.titulo LIKE ?';
+
+                                    $sentencia = $conexion -> prepare($sql);
+                                    $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
+                                    $sentencia -> execute([$_POST['search']."%"]);
+
+                                } else {
+                                    $sql = 'SELECT * FROM soporte INNER JOIN dvd on soporte.id = dvd.idSoporte';
+
+                                    $sentencia = $conexion -> prepare($sql);
+                                    $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
+                                    $sentencia -> execute();
+                                }
+
                                                 
                                 $soportes = $sentencia -> fetchAll();
                                                 
@@ -179,12 +210,23 @@
                                 $conexion = new PDO(DSN, USUARIO, CLAVE);
                                 $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                                                 
-                                $sql = 'SELECT * FROM soporte INNER JOIN cintavideo on soporte.id = cintavideo.idSoporte';
-                                                
-                                $sentencia = $conexion -> prepare($sql);
-                                $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
-                                $sentencia -> execute();
-                                                
+                                //$sql = 'SELECT * FROM soporte INNER JOIN cintavideo on soporte.id = cintavideo.idSoporte';
+
+                                if(isset($_POST['search'])) {
+                                    $sql = 'SELECT * FROM soporte INNER JOIN cintavideo on soporte.id = cintavideo.idSoporte AND soporte.titulo LIKE ?';
+
+                                    $sentencia = $conexion -> prepare($sql);
+                                    $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
+                                    $sentencia -> execute([$_POST['search']."%"]);
+
+                                } else {
+                                    $sql = 'SELECT * FROM soporte INNER JOIN cintavideo on soporte.id = cintavideo.idSoporte';
+
+                                    $sentencia = $conexion -> prepare($sql);
+                                    $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
+                                    $sentencia -> execute();
+                                }
+                                       
                                 $soportes = $sentencia -> fetchAll();
                                                 
                                 if(isset($soportes)){
@@ -203,7 +245,7 @@
                             
                             } catch(PDOException $e) {
                                 echo $e -> getMessage();
-                            }
+                            }                            
         
                         ?>
 
