@@ -71,7 +71,7 @@
 
                                     $sentencia = $conexion -> prepare($sql);
                                     $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
-                                    $sentencia -> execute([$_POST['search']."%"]);
+                                    $sentencia -> execute(["%".$_POST['search']."%"]);
 
                                 } else {
                                     $sql = 'SELECT * FROM soporte INNER JOIN juego on soporte.id = juego.idSoporte';
@@ -144,7 +144,7 @@
 
                                     $sentencia = $conexion -> prepare($sql);
                                     $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
-                                    $sentencia -> execute([$_POST['search']."%"]);
+                                    $sentencia -> execute(["%".$_POST['search']."%"]);
 
                                 } else {
                                     $sql = 'SELECT * FROM soporte INNER JOIN dvd on soporte.id = dvd.idSoporte';
@@ -217,7 +217,7 @@
 
                                     $sentencia = $conexion -> prepare($sql);
                                     $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
-                                    $sentencia -> execute([$_POST['search']."%"]);
+                                    $sentencia -> execute(["%".$_POST['search']."%"]);
 
                                 } else {
                                     $sql = 'SELECT * FROM soporte INNER JOIN cintavideo on soporte.id = cintavideo.idSoporte';
