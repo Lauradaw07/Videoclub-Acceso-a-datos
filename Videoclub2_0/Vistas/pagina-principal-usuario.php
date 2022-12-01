@@ -154,12 +154,12 @@
                               <th scope="col" class="d-flex justify-content-center align-items-center">
                                 Fecha alquiler
                                 <form method="post" action="">
-                                    <input type="hidden" name="btnOrd2" value='ORDER by fechaAlquiler ASC'>
+                                    <input type="hidden" name="btnOrd2" value='ORDER BY alquileres.fechaAlquiler ASC'>
                                     <button class="ms-2 btn btn-info" type='submit'><i class="bi bi-chevron-up"></i></button>
                                 </form>
                                 
                                 <form method="post" action="">
-                                    <input type="hidden" name="btnOrd2" value='ORDER by fechaAlquiler DESC'>
+                                    <input type="hidden" name="btnOrd2" value='ORDER BY alquileres.fechaAlquiler DESC'>
                                     <button class="ms-2 btn btn-info" type="submit"><i class="bi bi-chevron-down"></i></button>
                                 </form>
                                </th>
@@ -176,7 +176,7 @@
                                 $conexion = new PDO(DSN, USUARIO, CLAVE);
                                 $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                                                 
-                                $sql = 'SELECT * FROM soporte INNER JOIN alquileres on (soporte.id = alquileres.idSoporte) AND (alquileres.idCliente = ?) AND (soporte.alquilado LIKE 1) AND alquileres.fechaAlquiler = (SELECT MAX(fechaAlquiler) FROM alquileres)' . (isset($_POST['btnOrd2']) ? $_POST['btnOrd2']:"");
+                                $sql = 'SELECT * FROM soporte INNER JOIN alquileres on (soporte.id = alquileres.idSoporte) AND (alquileres.idCliente = ?) AND (soporte.alquilado LIKE 1) GROUP BY soporte.id ' . (isset($_POST['btnOrd2']) ? $_POST['btnOrd2']:"");
                                                 
                                 $sentencia = $conexion -> prepare($sql);
                                 $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
