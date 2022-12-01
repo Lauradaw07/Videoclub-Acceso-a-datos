@@ -10,6 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <title>Página usuario</title>
+    <?php
+        if(isset($_POST['logOut'])) {
+            session_destroy();
+            header('Location: ./log-in.html');
+        }
+    ?>
 </head>
 <body>
     <div class="container-fluid">
@@ -17,37 +23,46 @@
             <div class="col-12 col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <?php
-                            include "../Logica/database.inc.php";
-                            $conexion = null;
+                        <div class="row">
+                            <div class="col-12 col-lg-10">
+                                <?php
+                                    include "../Logica/database.inc.php";
+                                    $conexion = null;
+    
+                                    session_start();
+                                    $email = $_SESSION['email'];
+                                    try {
+                                        $conexion = new PDO(DSN, USUARIO, CLAVE);
+                                        $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                    
+                                        $sql = "SELECT * FROM usuarios WHERE email = ?";
+                                        $sentencia = $conexion -> prepare($sql);
+                                        $sentencia -> execute([$email]);
+                                    
+                                        $usuario = $sentencia -> fetch();
+                                    
+                                        if($usuario) {
+                                            $nombre = $usuario['nombre'];
+                                            $nombreUsuario = $usuario['usuario'];
+                                            $emailAlmacenado = $usuario['email']; 
+                                        }
+                                    } catch(PDOException $e) {
+                                        echo $e -> getMessage();
+                                    }    
+                                ?>
 
-                            session_start();
-                            $email = $_SESSION['email'];
-                            try {
-                                $conexion = new PDO(DSN, USUARIO, CLAVE);
-                                $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                
-                                $sql = "SELECT * FROM usuarios WHERE email = ?";
-                                $sentencia = $conexion -> prepare($sql);
-                                $sentencia -> execute([$email]);
-                
-                                $usuario = $sentencia -> fetch();
+                                <h2>Perfil:</h2>
 
-                                if($usuario) {
-                                    $nombre = $usuario['nombre'];
-                                    $nombreUsuario = $usuario['usuario'];
-                                    $emailAlmacenado = $usuario['email']; 
-                                }
-                            } catch(PDOException $e) {
-                                echo $e -> getMessage();
-                            }    
-                        ?>
+                                <p><b>Nombre:</b> <?=$nombre?></p>
+                                <p><b>Usuario:</b> <?=$nombreUsuario?></p>
+                                <p><b>Email:</b> <?=$emailAlmacenado?></p>
+                            </div>
 
-                        <h2>Perfil:</h2>
-
-                        <p><b>Nombre:</b> <?=$nombre?></p>
-                        <p><b>Usuario:</b> <?=$nombreUsuario?></p>
-                        <p><b>Email:</b> <?=$emailAlmacenado?></p>
+                            <div class="col-12 col-lg-2 d-flex justify-content-center align-items-center">
+                                <form action='' method='post'><button name='logOut' type='submit' class="btn btn-secondary btn-lg">Cerrar sesión</button></form>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -135,10 +150,11 @@
                                 </form>
                                 
                                 <form method="post" action="">
-                                    <input type="hidden" name="btnOr2" value='ORDER by fechaAlquiler DESC'>
+                                    <input type="hidden" name="btnOrd2" value='ORDER by fechaAlquiler DESC'>
                                     <button class="ms-2 btn btn-info" type="submit"><i class="bi bi-chevron-down"></i></button>
                                 </form>
-                            </th>
+                               </th>
+                               <th></th>
                             </tr>
                         </thead>
     
@@ -163,7 +179,7 @@
                                 if(isset($soportes)){
                                     foreach($soportes as $soporte) {
                                         echo "<tr>";
-                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']." €</td><td class='d-flex justify-content-center'>".$soporte['fechaAlquiler']."</td></tr>";
+                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']." €</td><td class='d-flex justify-content-center'>".$soporte['fechaAlquiler']."</td><td><form action='../Logica/devolver.php' method='post'><input type='hidden' value='".$soporte['id']."'><button type='submit' class='btn btn-danger'>Devolver</button></form></td></tr>";
                                     }
                                 }
                             

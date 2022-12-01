@@ -68,9 +68,9 @@
                                         echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']."</td><td>".$soporte['consola']."</td><td>".$soporte['minNumeroJugadores']."</td><td>".$soporte['maxNumeroJugadores']."</td><td>";
                                         echo ($soporte['alquilado']) ? "No disponible":"Disponible";
                                         if($soporte['alquilado']) {
-                                            echo "</td><td class='d-flex justify-content-end'><button disabled class='btn btn-danger'>Alquilar</button></td>";
+                                            echo "</td><td class='d-flex justify-content-end'><button disabled class='btn btn-success'>Alquilar</button></td>";
                                         } else {
-                                            echo "</td><td class='d-flex justify-content-end'> <form method='post' action='../Logica/alquilar.php'> <input type='hidden' name='idSoporte' value='".$soporte['id']."'> <button type='submit' class='btn btn-danger'>Alquilar</button> </form> </td>";
+                                            echo "</td><td class='d-flex justify-content-end'> <form method='post' action='../Logica/alquilar.php'> <input type='hidden' name='idSoporte' value='".$soporte['id']."'> <button type='submit' class='btn btn-success'>Alquilar</button> </form> </td>";
                                         }
                                         
                                     }
@@ -132,9 +132,9 @@
                                         echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']."</td><td>".$soporte['idiomas']."</td><td>".$soporte['formatoPantalla']."</td><td>";
                                         echo ($soporte['alquilado']) ? "No disponible":"Disponible";
                                         if($soporte['alquilado']) {
-                                            echo "</td><td class='d-flex justify-content-end'><button disabled class='btn btn-danger'>Alquilar</button></td>";
+                                            echo "</td><td class='d-flex justify-content-end'><button disabled class='btn btn-success'>Alquilar</button></td>";
                                         } else {
-                                            echo "</td><td class='d-flex justify-content-end'> <form method='post' action='../Logica/alquilar.php'> <input type='hidden' name='idSoporte' value='".$soporte['id']."'> <button type='submit' class='btn btn-danger'>Alquilar</button> </form> </td>";
+                                            echo "</td><td class='d-flex justify-content-end'> <form method='post' action='../Logica/alquilar.php'> <input type='hidden' name='idSoporte' value='".$soporte['id']."'> <button type='submit' class='btn btn-success'>Alquilar</button> </form> </td>";
                                         }
                                     }
                                 }
@@ -193,9 +193,9 @@
                                         echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']."</td><td>".$soporte['duracion']." minutos</td><td>";
                                         echo ($soporte['alquilado']) ? "No disponible":"Disponible";
                                         if($soporte['alquilado']) {
-                                            echo "</td><td class='d-flex justify-content-end'><button disabled class='btn btn-danger'>Alquilar</button></td>";
+                                            echo "</td><td class='d-flex justify-content-end'><button disabled class='btn btn-success'>Alquilar</button></td>";
                                         } else {
-                                            echo "</td><td class='d-flex justify-content-end'> <form method='post' action='../Logica/alquilar.php'> <input type='hidden' name='idSoporte' value='".$soporte['id']."'> <button type='submit' class='btn btn-danger'>Alquilar</button> </form> </td>";
+                                            echo "</td><td class='d-flex justify-content-end'> <form method='post' action='../Logica/alquilar.php'> <input type='hidden' name='idSoporte' value='".$soporte['id']."'> <button type='submit' class='btn btn-success'>Alquilar</button> </form> </td>";
                                         }
                                         
                                     }
