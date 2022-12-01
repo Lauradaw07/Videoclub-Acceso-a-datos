@@ -128,6 +128,15 @@
                     </table>    
                 </div>
             </div>
+
+            <div class="col-12 col-lg-12 d-flex justify-content-center">
+                <form method='post' action='../Informes/generarInforme.php'>
+                    <input name='usuario' type='hidden' value='<?=$usuario["usuario"]?>'>
+                    <input name='idCliente' type='hidden' value='<?=$usuario["idCliente"]?>'>
+                    <button type='submit' class="btn btn-info">Generar Informe</button>
+                </form>
+                
+            </div>
         </div>
 
         <div class="row">
@@ -163,12 +172,11 @@
                         
                             $conexion = null;
 
-                            try {
-                                                
+                            try {                
                                 $conexion = new PDO(DSN, USUARIO, CLAVE);
                                 $conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                                                 
-                                $sql = 'SELECT * FROM soporte INNER JOIN alquileres on (soporte.id = alquileres.idSoporte) AND (alquileres.idCliente = ?) AND (soporte.alquilado LIKE 1)' . (isset($_POST['btnOrd2']) ? $_POST['btnOrd2']:"");
+                                $sql = 'SELECT * FROM soporte INNER JOIN alquileres on (soporte.id = alquileres.idSoporte) AND (alquileres.idCliente = ?) AND (soporte.alquilado LIKE 1) AND alquileres.fechaAlquiler = (SELECT MAX(fechaAlquiler) FROM alquileres)' . (isset($_POST['btnOrd2']) ? $_POST['btnOrd2']:"");
                                                 
                                 $sentencia = $conexion -> prepare($sql);
                                 $sentencia -> setFetchMode(PDO::FETCH_ASSOC);
@@ -179,7 +187,7 @@
                                 if(isset($soportes)){
                                     foreach($soportes as $soporte) {
                                         echo "<tr>";
-                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']." €</td><td class='d-flex justify-content-center'>".$soporte['fechaAlquiler']."</td><td><form action='../Logica/devolver.php' method='post'><input type='hidden' value='".$soporte['id']."'><button type='submit' class='btn btn-danger'>Devolver</button></form></td></tr>";
+                                        echo "<td>".$soporte['titulo']."</td><td>".$soporte['precio']." €</td><td class='d-flex justify-content-center'>".$soporte['fechaAlquiler']."</td><td><form action='../Logica/devolver.php' method='post'><input name='id' type='hidden' value='".$soporte['id']."'><button type='submit' class='btn btn-danger'>Devolver</button></form></td></tr>";
                                     }
                                 }
                             
