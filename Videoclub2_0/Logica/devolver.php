@@ -29,6 +29,9 @@
         $sentencia3 = $conexion -> prepare($consultaActualizarSoportesAlquilados);
         $sentencia3 -> execute([$cliente['numeroSoportesAlquilados'], $idUsuario]);
 
+        session_start();
+        $_SESSION['productoDevuelto'] = true;
+
         header('Location: ../Vistas/pagina-principal-usuario.php');
 
     } catch(PDOException $e) {

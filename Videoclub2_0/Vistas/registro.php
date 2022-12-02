@@ -41,6 +41,8 @@
                         </div>
                     </div>
                 <?php }
+                    $_SESSION['errorClaveDistinta'] = false;
+
                     if (isset($_SESSION['errorEmailYaRegistrado'])) {
                         $existeErrorEmailRegistrado = $_SESSION['errorEmailYaRegistrado'];
                     }
@@ -55,6 +57,9 @@
                             </div>
                         </div>
                 <?php }
+
+                    $_SESSION['errorEmailYaRegistrado'] = false;
+                        
                     if (isset($_SESSION['errorCamposVacios'])) {
                         $existeErrorCamposVacios = $_SESSION['errorCamposVacios'];
                     }
@@ -69,13 +74,9 @@
                             </div>
                         </div>
                 
-                <?php } ?> 
-                <!-- <script>
-                    
-                    // const idTimeout = setTimeout(() => { 
-                    //     alertaRegistro.classList.add('ocultar'); <?=session_destroy();?>}, 5000);
-                       
-                </script> -->
+                <?php } 
+                    $_SESSION['errorCamposVacios'] = false;
+                ?> 
                     
                 <div class="row">
                     <div class="col-12 col-lg-12 col-sm-8 mt-3">

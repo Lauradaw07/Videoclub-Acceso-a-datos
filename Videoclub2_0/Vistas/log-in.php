@@ -42,6 +42,7 @@
                 </div>
 
                 <?php }
+                    $_SESSION['usuarioRegistrado'] = false;
 
                     if (isset($_SESSION['errorCamposVacios'])) {
                         $existeErrorCamposVacios = $_SESSION['errorCamposVacios'];
@@ -58,6 +59,8 @@
                         </div>
                     
                 <?php } 
+                    $_SESSION['errorCamposVacios'] = false;
+
                     if (isset($_SESSION['credencialesErroneas'])) {
                         $existeErrorCredenciales = $_SESSION['credencialesErroneas'];
                     }
@@ -71,7 +74,9 @@
                                 </div>
                             </div>
                         </div>
-                 <?php }?>       
+                 <?php }
+                    $_SESSION['credencialesErroneas'] = false;
+                 ?>       
 
                 <div class="row">
                     <div class="col-12 col-lg-12 mt-3">

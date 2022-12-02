@@ -1,0 +1,42 @@
+body{
+    background-color: #183B5A !important;
+}
+
+.card {
+    background-color: #09A4B1 !important;
+    position: sticky !important;
+    height: 96vh !important;
+}
+
+.botonCerrarSesion {
+    font-size: medium !important;
+    background-color: grey !important;
+}
+h2 {
+    color: white;
+}
+
+th {
+    color: white;
+}
+
+td {
+    color: white !important;
+}
+
+.botonDevolver {
+    font-size: small !important;
+    background-color: rgb(251, 80, 80) !important;
+}
+
+button {
+    background-color: #09A4B1 !important;
+}
+
+#tablahistoricoproductos{
+    height: 315px !important;
+    overflow: scroll !important;
+    overflow-x: hidden !important;
+     
+    overflow-wrap: normal !important;
+}

@@ -1,4 +1,9 @@
-<?php 
+<?php
+
+use Dwes\Util\NoHistoricoException;
+
+    require_once "../Dwes/Util/NoHistoricoException.php";
+
     $nombreUsuario = $_POST['usuario'];
     $idCliente= $_POST['idCliente'];
 
@@ -18,20 +23,25 @@
     $alquileres = $sentencia->fetchAll();
   
 
-    if(isset($alquileres)){
+    if($alquileres) {
         $fp = fopen($archivo, "w");
         foreach($alquileres as $alquiler) {
             $fila = "Nombre: ".$alquiler[1]." | Precio: ".$alquiler[2]." | Fecha Alquiler: ".$alquiler[5]."\n";
             fwrite($fp,$fila);
-            // fwrite($archivo,"\n");
         }
 
         fclose($fp);
 
+        session_start();
+        $_SESSION['informeGenerado'] = true;
+
         header('Location: ../Vistas/pagina-principal-usuario.php');
+    } else {
+        try {
+            throw new NoHistoricoException;
+        } catch(NoHistoricoException $e) {
+            $e -> mostrarAlerta();
+        }
     }
-
-    
-
     
 ?>

@@ -1,0 +1,12 @@
+Nombre: Minecraft | Precio: 12.5 | Fecha Alquiler: 2022-12-02 21:22:13
+Nombre: Minecraft | Precio: 12.5 | Fecha Alquiler: 2022-12-02 22:04:47
+Nombre: Minecraft | Precio: 12.5 | Fecha Alquiler: 2022-12-02 22:06:23
+Nombre: Cenicienta | Precio: 25.3 | Fecha Alquiler: 2022-12-02 21:58:52
+Nombre: God of War Ragnarok | Precio: 60 | Fecha Alquiler: 2022-12-02 22:02:22
+Nombre: God of War Ragnarok | Precio: 60 | Fecha Alquiler: 2022-12-02 22:06:24
+Nombre: La Pantoja | Precio: 12.95 | Fecha Alquiler: 2022-12-02 21:22:15
+Nombre: La Pantoja | Precio: 12.95 | Fecha Alquiler: 2022-12-02 22:03:17
+Nombre: La Pantoja | Precio: 12.95 | Fecha Alquiler: 2022-12-02 22:04:45
+Nombre: Mi carro me lo robaron | Precio: 5.95 | Fecha Alquiler: 2022-12-02 21:22:17
+Nombre: Mi carro me lo robaron | Precio: 5.95 | Fecha Alquiler: 2022-12-02 22:04:11
+Nombre: Mi carro me lo robaron | Precio: 5.95 | Fecha Alquiler: 2022-12-02 22:04:45
