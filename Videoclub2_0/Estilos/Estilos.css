@@ -56,3 +56,10 @@ form {
     }
 }
 
+.ocultar {
+    display: none !important;
+}
+
+.mostrar {
+    display: block !important;
+}

@@ -1,4 +1,11 @@
 <?php
+
+use Dwes\Util\ClaveDistintaRegistroException;
+use Dwes\Util\EmailYaRegistradoException;
+
+    require_once "../Dwes/Util/ClaveDistintaRegistroException.php";
+    require_once "../Dwes/Util/EmailYaRegistradoException.php";
+
     include "./database.inc.php";
 
     $nombre = $_POST['nombre'];
@@ -6,10 +13,21 @@
     $email = $_POST['email'];
     $clave = $_POST['clave'];
     $comprobacionClave = $_POST['comprobacionClave'];
+    $error = false;
 
-    //COMPROBAR TAMBIÉN QUE EL NOMBRE DE USUARIO NO ESTÉ REGISTRADO EN LA BASE DE DATOS
+    
     if(($nombre != "") && ($usuario != "") && ($email != "") && ($clave != "") && ($comprobacionClave != "")) {
+        try{
+            if($clave != $comprobacionClave) {
+                throw new ClaveDistintaRegistroException();
+            }
+            
+        } catch(ClaveDistintaRegistroException $e) {
+            echo $e -> mostrarAlerta();
+        }
+        
         if($clave === $comprobacionClave) {
+            
             $conexion = null;
     
             try {
@@ -25,7 +43,9 @@
     
                 if(!$usuarioEncontrado) {
                     try {
-                        $id = uniqid();
+                        //$id = uniqid('', true);
+                        $aleatorio = rand(1, 9) * round(microtime(true) * 1000);
+                        $id = intval(substr($aleatorio, 0, 8));
     
                         $sql = "INSERT INTO usuarios VALUES (:idCliente, :nombre, :usuario, :email, :clave)";
                         $sentencia = $conexion -> prepare($sql);
@@ -48,20 +68,27 @@
                         ]);
     
                         echo "El usuario ".$usuario." ha sido introducido en el sistema con la contraseña ".$clave;
+
+                        session_start();
+                        $_SESSION['usuarioRegistrado'] = true;
     
                         header('Location: ../Vistas/log-in.html');
     
                     } catch(PDOException $e) {
                         echo $e -> getMessage();
                     }
+                } else {
+                    try{
+                        throw new EmailYaRegistradoException;
+                    } catch(EmailYaRegistradoException $e){
+                        $e -> mostrarAlerta();
+                    }
                 }
     
             } catch(PDOException $e) {
                 echo $e -> getMessage();
             }
-        } else {
-            echo "Usuario o contraseña incorrectas"; //PONER ALERTA
-        }
+        } 
     } else {
         header('Location: ../Vistas/log-in.html');
     }

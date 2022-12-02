@@ -3,7 +3,6 @@
 
     require_once("resumible.php");
 
-    use Dwes\Soporte;
     use Dwes\Resumible;
 
     abstract class Soporte implements Resumible {

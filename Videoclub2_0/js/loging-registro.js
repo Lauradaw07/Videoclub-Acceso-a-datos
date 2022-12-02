@@ -8,3 +8,5 @@ const interval = setInterval(() => {
     if(numFoto==1) numFoto--;
     else numFoto++;
 }, 7000);
+
+// const idTimeout = setTimeout(() => )

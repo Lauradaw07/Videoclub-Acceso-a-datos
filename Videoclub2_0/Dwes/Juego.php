@@ -35,14 +35,5 @@ class Juego extends Soporte
         $this->muestaJugadoresPosibles();
     }
 
-
-
-    
-
-
-
-
-
-
 }
 ?>
