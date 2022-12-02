@@ -54,8 +54,10 @@
                                 <h4 class="text-center">Datos personales</h4>
                                 <hr>
 
-                                <p><b>Nombre:</b> <?=$nombre?></p>
-                                <p><b>Usuario:</b> <?=$nombreUsuario?></p>
+                                <span><b>Nombre:</b></span>
+                                <p><?=$nombre?></p>
+                                <span><b>Usuario:</b></span>
+                                <p><?=$nombreUsuario?></span>
                                 <p><b>Email:</b> <?=$emailAlmacenado?></p>
                             </div>
 
@@ -97,18 +99,17 @@
 
                         if(isset($existeProductoDevuelto) && $existeProductoDevuelto) {?>
                        
-                        <div class="row"></div>
+                        <div class="row">
                             <div class="col-12 col-lg-12 d-flex justify-content-center">
-
                                 <div class="alert alert-success alert-dismissible fade w-50 show" role="alert">
                                     Producto devuelto con éxito.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             </div>
-                            
                         </div>
                     <?php } 
                         $_SESSION['productoDevuelto'] = false;
+                        // header('Location: ./pagina-principal-usuario.php');
                     ?>
                     </div>
 

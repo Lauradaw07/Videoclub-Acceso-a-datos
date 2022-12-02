@@ -13,8 +13,8 @@
     <title>Document</title>
 </head>
 <body>
-
-    <div class="container-fluid"></div>
+    
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-lg-12 mt-4 mb-4 d-flex justify-content-center">
                 <h2>Productos:</h2>
@@ -31,6 +31,26 @@
                 </form>
             </div>
         </div>
+
+        <?php
+                    
+            session_start();
+            if (isset($_SESSION['productoAlquilado'])) {
+                $existeProductoAlquilado = $_SESSION['productoAlquilado'];
+            }
+
+            if(isset($existeProductoAlquilado) && $existeProductoAlquilado) {?>
+                       
+                <div class="row">
+                    <div class="col-12 col-lg-12 d-flex justify-content-center">
+                        <div class="alert alert-success alert-dismissible fade w-50 show" role="alert">
+                            Producto alquilado con éxito.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+      <?php }
+            $_SESSION['productoAlquilado'] = false;?>
         
         <div class="row">
             <div class="col-12 col-lg-12 d-flex justify-content-center">
@@ -250,7 +270,7 @@
 
         <div class="row">
             <div class="col-12 col-lg-12 d-flex justify-content-center">
-                <a href="./pagina-principal-usuario.php"><button class="btn btn-outline-info">Volver Atrás</button></a>
+                <a href="./pagina-principal-usuario.php"><button class="btn btn-info">Volver Atrás</button></a>
             </div>
         </div>
     </div>

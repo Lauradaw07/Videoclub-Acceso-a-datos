@@ -49,6 +49,8 @@
                 }
             }
         
+            $_SESSION['productoAlquilado'] = true;
+
             header('Location: ../Vistas/listado.php');
         
         } catch(PDOException $e) {

@@ -1,3 +1,23 @@
 body{
     background-color: #183B5A !important;
 }
+
+input {
+    width: 500px !important;
+}
+
+h2 {
+    color: white;
+}
+
+th {
+    color: white !important;
+}
+
+td {
+    color: white !important;
+}
+
+.btn-info {
+    background-color: #09A4B1 !important;
+}
