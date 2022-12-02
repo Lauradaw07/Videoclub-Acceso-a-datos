@@ -27,7 +27,6 @@
                 <?php
                     
                     session_start();
-                    var_dump($_SESSION);
                     if (isset($_SESSION['errorClaveDistinta'])) {
                         $existeErrorClaveDistinta = $_SESSION['errorClaveDistinta'];
                     }
@@ -55,8 +54,22 @@
                                 </div>
                             </div>
                         </div>
-                <?php }?>
+                <?php }
+                    if (isset($_SESSION['errorCamposVacios'])) {
+                        $existeErrorCamposVacios = $_SESSION['errorCamposVacios'];
+                    }
+
+                    if(isset($existeErrorCamposVacios) && $existeErrorCamposVacios) {?>
+                        
+                        <div class="row">
+                            <div class="col-12 col-lg-12">
+                                <div class="alert alert-danger" id="alertaRegistro" role="alert">
+                                    Por favor, rellena todos los campos.
+                                </div>
+                            </div>
+                        </div>
                 
+                <?php } ?> 
                 <!-- <script>
                     
                     // const idTimeout = setTimeout(() => { 
@@ -87,7 +100,7 @@
                                 <button class="btn btn-info" id="" type="submit">Registrarme</button>
                                 <button class="btn btn-danger" type="reset">Borrar</button>
                                 </div>
-                                <a href="./log-in.html"><p class="text-center mt-3">Iniciar Sesión</p></a>
+                                <a href="./log-in.php"><p class="text-center mt-3">Iniciar Sesión</p></a>
                             </fieldset>
                         </form>
                     </div>

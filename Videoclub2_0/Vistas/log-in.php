@@ -25,9 +25,57 @@
                     </div>
                 </div>
 
+                <?php 
+                    session_start();
+                    if (isset($_SESSION['usuarioRegistrado'])) {
+                        $existeUsuarioRegistrado = $_SESSION['usuarioRegistrado'];
+                    }
+
+                    if(isset($existeUsuarioRegistrado) && $existeUsuarioRegistrado) { ?>
+
+                <div class="row">
+                    <div class="col-12 col-lg-12">
+                        <div class="alert alert-success" role="alert">
+                            El usuario ha sido registrado con éxito
+                        </div>
+                    </div>
+                </div>
+
+                <?php }
+
+                    if (isset($_SESSION['errorCamposVacios'])) {
+                        $existeErrorCamposVacios = $_SESSION['errorCamposVacios'];
+                    }
+
+                    if(isset($existeErrorCamposVacios) && $existeErrorCamposVacios) {?>
+                        
+                        <div class="row">
+                            <div class="col-12 col-lg-12">
+                                <div class="alert alert-danger" id="alertaRegistro" role="alert">
+                                    Por favor, rellena todos los campos.
+                                </div>
+                            </div>
+                        </div>
+                    
+                <?php } 
+                    if (isset($_SESSION['credencialesErroneas'])) {
+                        $existeErrorCredenciales = $_SESSION['credencialesErroneas'];
+                    }
+
+                    if(isset($existeErrorCredenciales) && $existeErrorCredenciales) {?>
+                                            
+                        <div class="row">
+                            <div class="col-12 col-lg-12">
+                                <div class="alert alert-danger" id="alertaRegistro" role="alert">
+                                    Email o contraseña incorrectos.
+                                </div>
+                            </div>
+                        </div>
+                 <?php }?>       
+
                 <div class="row">
                     <div class="col-12 col-lg-12 mt-3">
-                        <form class="form" action="../Logica/log-in.php" method="post">
+                        <form class="form" action="../Logica/log-inLogica.php" method="post">
                             <fieldset class=" ps-2">
                                 <label class="text-light" for="email">Introduce tu correo:</label><br>
                                 <input class="form-control" type="text" id="email" name="email" placeholder="ejemplo@ejemplo.com">

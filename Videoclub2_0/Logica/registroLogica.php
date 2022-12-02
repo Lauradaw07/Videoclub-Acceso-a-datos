@@ -2,9 +2,11 @@
 
 use Dwes\Util\ClaveDistintaRegistroException;
 use Dwes\Util\EmailYaRegistradoException;
+use Dwes\Util\CamposVaciosException;
 
     require_once "../Dwes/Util/ClaveDistintaRegistroException.php";
     require_once "../Dwes/Util/EmailYaRegistradoException.php";
+    require_once "../Dwes/Util/CamposVaciosException.php";
 
     include "./database.inc.php";
 
@@ -15,6 +17,11 @@ use Dwes\Util\EmailYaRegistradoException;
     $comprobacionClave = $_POST['comprobacionClave'];
     $error = false;
 
+    $nombre = trim($nombre);
+    $usuario = trim($usuario);
+    $email = trim($email);
+    $clave = trim($clave);
+    $comprobacionClave = trim($comprobacionClave);
     
     if(($nombre != "") && ($usuario != "") && ($email != "") && ($clave != "") && ($comprobacionClave != "")) {
         try{
@@ -43,7 +50,6 @@ use Dwes\Util\EmailYaRegistradoException;
     
                 if(!$usuarioEncontrado) {
                     try {
-                        //$id = uniqid('', true);
                         $aleatorio = rand(1, 9) * round(microtime(true) * 1000);
                         $id = intval(substr($aleatorio, 0, 8));
     
@@ -72,7 +78,7 @@ use Dwes\Util\EmailYaRegistradoException;
                         session_start();
                         $_SESSION['usuarioRegistrado'] = true;
     
-                        header('Location: ../Vistas/log-in.html');
+                        header('Location: ../Vistas/log-in.php');
     
                     } catch(PDOException $e) {
                         echo $e -> getMessage();
@@ -90,6 +96,12 @@ use Dwes\Util\EmailYaRegistradoException;
             }
         } 
     } else {
-        header('Location: ../Vistas/log-in.html');
+        try{
+            throw new CamposVaciosException;
+        } catch(CamposVaciosException $e) {
+            $e -> mostrarAlerta();
+            header('Location: ../Vistas/registro.php');
+        }
+        header('Location: ../Vistas/registro.php');
     }
 ?>

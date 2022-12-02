@@ -1,8 +1,16 @@
 <?php
+use Dwes\Util\CamposVaciosException;
+use Dwes\Util\CredencialesErroneasException;
+
     include "./database.inc.php";
+    require_once "../Dwes/Util/CamposVaciosException.php";
+    require_once "../Dwes/Util/CredencialesErroneasException.php";
 
     $email = $_POST['email'];
     $clave = $_POST['clave'];
+
+    $email = trim($email);
+    $clave = trim($clave);
     
     if(($email != "") && ($clave != "")) {
         $conexion = null;
@@ -26,7 +34,12 @@
 
                 header('Location: ../Vistas/pagina-principal-usuario.php');
             } else {
-                echo "NOP"; //PONER ALERTA
+                try {
+                    throw new CredencialesErroneasException;
+                } catch(CredencialesErroneasException $e) {
+                    $e -> mostrarAlerta();
+                }
+
             }
 
 
@@ -34,6 +47,12 @@
             echo $e -> getMessage();
         }
     } else {
-        header('Location: ../Vistas/log-in.html');
+        try{
+            throw new CamposVaciosException;
+        } catch(CamposVaciosException $e) {
+            $e -> mostrarAlerta();
+            header('Location: ../Vistas/log-in.php');
+        }
+        header('Location: ../Vistas/log-in.php');
     }
 ?>

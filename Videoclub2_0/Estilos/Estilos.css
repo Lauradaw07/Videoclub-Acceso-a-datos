@@ -30,8 +30,6 @@ a:visited{
     color: rgb(62, 198, 236);
 }
 
-
-
 @media (max-width: 480px) {
     /* .grid{
         grid-template-columns: 100%;

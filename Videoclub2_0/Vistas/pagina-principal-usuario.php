@@ -4,18 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CSS-->
+    <link rel="stylesheet" href="../Estilos/EstilosPaginaPrincipal.css">
     <!--CSS Bootstrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
     <!--JS Bootstrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <title>Página usuario</title>
-    <?php
-        if(isset($_POST['logOut'])) {
-            session_destroy();
-            header('Location: ./log-in.html');
-        }
-    ?>
 </head>
 <body>
     <div class="container-fluid">
@@ -61,6 +57,14 @@
                             <div class="col-12 col-lg-2 d-flex justify-content-center align-items-center">
                                 <form action='' method='post'><button name='logOut' type='submit' class="btn btn-secondary btn-lg">Cerrar sesión</button></form>
                             </div>
+                            
+                            <?php
+                                if(isset($_POST['logOut'])) {
+                                    session_destroy();
+                                    header('Location: ./log-in.php');
+                                }
+                            ?>
+
                         </div>
                         
                     </div>
